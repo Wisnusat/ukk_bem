@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2022 at 02:30 AM
+-- Generation Time: Apr 06, 2022 at 08:09 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.25
 
@@ -158,9 +158,8 @@ CREATE TABLE `tb_transaksi` (
   `tgl` datetime DEFAULT NULL,
   `batas_waktu` datetime DEFAULT NULL,
   `tgl_bayar` datetime DEFAULT NULL,
-  `biaya_tambahan` int(11) DEFAULT NULL,
-  `diskon` double DEFAULT NULL,
-  `pajak` int(11) DEFAULT NULL,
+  `id_paket` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
   `status` enum('baru','proses','selesai','diambil') DEFAULT NULL,
   `dibayar` enum('dibayar','belum_dibayar') DEFAULT NULL,
   `id_user` int(11) NOT NULL,
@@ -172,9 +171,8 @@ CREATE TABLE `tb_transaksi` (
 -- Dumping data for table `tb_transaksi`
 --
 
-INSERT INTO `tb_transaksi` (`id`, `id_outlet`, `kode_invoice`, `id_member`, `tgl`, `batas_waktu`, `tgl_bayar`, `biaya_tambahan`, `diskon`, `pajak`, `status`, `dibayar`, `id_user`, `createdAt`, `updatedAt`) VALUES
-(2, 1, 'qweqw123124', 2, '2021-12-25 00:00:00', '2021-12-25 00:00:00', '2021-12-25 00:00:00', 500, 6, 7, 'baru', 'belum_dibayar', 8, '2021-12-25 06:01:01', '2021-12-25 07:34:53'),
-(3, 1, 'qwerty', 2, '2022-01-18 00:00:00', '2022-01-25 00:00:00', '2022-01-13 00:00:00', 0, 5, 900, '', 'dibayar', 8, '2022-01-17 06:44:04', '2022-01-17 06:44:04');
+INSERT INTO `tb_transaksi` (`id`, `id_outlet`, `kode_invoice`, `id_member`, `tgl`, `batas_waktu`, `tgl_bayar`, `id_paket`, `qty`, `status`, `dibayar`, `id_user`, `createdAt`, `updatedAt`) VALUES
+(5, 1, 'qwerty123qq', 2, '2022-06-03 17:00:00', '2022-09-03 17:00:00', '2022-07-03 17:00:00', 1, 2, 'selesai', 'dibayar', 8, '2022-04-05 21:39:32', '2022-04-05 21:39:32');
 
 -- --------------------------------------------------------
 
@@ -250,6 +248,7 @@ ALTER TABLE `tb_paket`
 --
 ALTER TABLE `tb_transaksi`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_paket` (`id_paket`),
   ADD KEY `id_outlet` (`id_outlet`),
   ADD KEY `id_member` (`id_member`),
   ADD KEY `id_user` (`id_user`);
@@ -299,7 +298,7 @@ ALTER TABLE `tb_paket`
 -- AUTO_INCREMENT for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
@@ -330,7 +329,8 @@ ALTER TABLE `tb_paket`
 ALTER TABLE `tb_transaksi`
   ADD CONSTRAINT `tb_transaksi_ibfk_1` FOREIGN KEY (`id_outlet`) REFERENCES `tb_outlet` (`id`),
   ADD CONSTRAINT `tb_transaksi_ibfk_2` FOREIGN KEY (`id_member`) REFERENCES `tb_member` (`id`),
-  ADD CONSTRAINT `tb_transaksi_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`);
+  ADD CONSTRAINT `tb_transaksi_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`),
+  ADD CONSTRAINT `tb_transaksi_ibfk_4` FOREIGN KEY (`id_paket`) REFERENCES `tb_paket` (`id`);
 
 --
 -- Constraints for table `tb_user`

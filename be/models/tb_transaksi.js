@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     tgl: DataTypes.DATE,
     batas_waktu: DataTypes.DATE,
     tgl_bayar: DataTypes.DATE,
-    id_paket: DataTypes.STRING,
+    id_paket: DataTypes.INTEGER,
     qty: DataTypes.INTEGER,
     status: DataTypes.ENUM('baru', 'proses', 'selesai', 'diambil'),
     dibayar: DataTypes.ENUM('dibayar', 'belum_dibayar'),
